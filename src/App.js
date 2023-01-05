@@ -1,21 +1,20 @@
-import { useEffect, useState } from "react";
+import { useState } from 'react'
 
 function App() {
-  const carsExpenses = [30, 35, 40, 45];
-  const fuelPrices = [1.1, 1.22, 1.47, 1.77];
-  const [oneMonthExpenses, setOneMonthExpenses] = useState();
-  const [firstTask, setFirstTask] = useState();
-  const [secondTask, setSecondTask] = useState();
-  const [thirdTask, setThirdTask] = useState();
-  const [fourthTask, setFourthTask] = useState(0);
-  const [fifthTask, setFifthTask] = useState();
+  const carsExpenses = [30, 35, 40, 45]
+  const fuelPrices = [1.1, 1.22, 1.47, 1.77]
+  const [firstTask, setFirstTask] = useState()
+  const [secondTask, setSecondTask] = useState()
+  const [thirdTask, setThirdTask] = useState()
+  const [fourthTask, setFourthTask] = useState(0)
+  const [fifthTask, setFifthTask] = useState()
 
   const calculateExpensesForMonth = (cars, extraWeeks, months) => {
-    const monthlyPrice = months || 1;
-    let weeksPrices = fuelPrices;
+    const monthlyPrice = months || 1
+    let weeksPrices = fuelPrices
 
     for (let i = 0; i <= extraWeeks - 1; i++) {
-      weeksPrices = [...weeksPrices, fuelPrices[i]];
+      weeksPrices = [...weeksPrices, fuelPrices[i]]
     }
 
     return cars.map((oneCar) => {
@@ -28,13 +27,13 @@ function App() {
             ),
           0
         ),
-      };
-    });
-  };
+      }
+    })
+  }
 
   const calculateFirstTask = () => {
-    setFirstTask(calculateExpensesForMonth([1, 2, 3, 4], undefined, 3));
-  };
+    setFirstTask(calculateExpensesForMonth([1, 2, 3, 4], undefined, 3))
+  }
 
   const calculateSecondTask = () => {
     setSecondTask(
@@ -42,8 +41,8 @@ function App() {
         ...calculateExpensesForMonth([1, 2]),
         ...calculateExpensesForMonth([3, 4], 2),
       ].reduce((acc, value) => parseFloat((acc + value.expenses).toFixed(2)), 0)
-    );
-  };
+    )
+  }
 
   const calculateThirdTask = () => {
     setThirdTask([
@@ -56,10 +55,10 @@ function App() {
               4
             ).toFixed(2)
           ),
-        };
+        }
       }),
-    ]);
-  };
+    ])
+  }
 
   const calculateFourthTask = async () => {
     for (
@@ -68,35 +67,35 @@ function App() {
       (await calculateExpensesForMonth([4])[0].expenses);
       i++
     ) {
-      setFourthTask(i);
+      setFourthTask(i)
     }
-  };
+  }
 
   const calculateFifthTask = () => {
-    let cars = [1, 2, 3, 4];
+    let cars = [1, 2, 3, 4]
     let combinations = cars.flatMap((v, i) =>
       cars.slice(i + 1).map((w) => [v, w])
-    );
+    )
     let results = combinations.map((oneCombination) =>
       oneCombination.reduce(
         (acc, value) => acc + calculateExpensesForMonth([value])[0].expenses,
         0
       )
-    );
+    )
 
-    const min = Math.min(...results);
-    const index = results.indexOf(min);
-    setFifthTask([min, combinations[index]]);
-  };
+    const min = Math.min(...results)
+    const index = results.indexOf(min)
+    setFifthTask([min, combinations[index]])
+  }
 
   const style = {
-    display: "flex",
-    alignItems: "center",
-  };
+    display: 'flex',
+    alignItems: 'center',
+  }
   const button = {
-    marginLeft: "10px",
-    cursor: "pointer",
-  };
+    marginLeft: '10px',
+    cursor: 'pointer',
+  }
 
   return (
     <div>
@@ -107,10 +106,10 @@ function App() {
             Calculate
           </button>
         </div>
-        <div style={{ display: "flex" }}>
+        <div style={{ display: 'flex' }}>
           {firstTask &&
             firstTask.map((item, i) => (
-              <p style={{ marginRight: "10px" }} key={i}>
+              <p style={{ marginRight: '10px' }} key={i}>
                 {item.name}: {item.expenses}€
               </p>
             ))}
@@ -126,7 +125,7 @@ function App() {
             Calculate
           </button>
         </div>
-        <div style={{ display: "flex" }}>
+        <div style={{ display: 'flex' }}>
           {secondTask && <p>Total: {secondTask}€</p>}
         </div>
       </div>
@@ -140,10 +139,10 @@ function App() {
             Calculate
           </button>
         </div>
-        <div style={{ display: "flex" }}>
+        <div style={{ display: 'flex' }}>
           {thirdTask &&
             thirdTask.map((item, i) => (
-              <p style={{ marginRight: "10px" }} key={i}>
+              <p style={{ marginRight: '10px' }} key={i}>
                 {item.name}: {item.expenses}€
               </p>
             ))}
@@ -171,11 +170,11 @@ function App() {
             Calculate
           </button>
         </div>
-        <div style={{ display: "flex" }}>
+        <div style={{ display: 'flex' }}>
           {fifthTask && (
             <>
               {fifthTask[1].map((item, i) => (
-                <p style={{ marginRight: "10px" }} key={i}>
+                <p style={{ marginRight: '10px' }} key={i}>
                   Car: {item}
                 </p>
               ))}
@@ -185,7 +184,7 @@ function App() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
